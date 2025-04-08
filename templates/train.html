@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>FitNudge - AI Fitness Assistant</title>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-core"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-converter"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/pose-detection"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs-backend-webgl"></script>
+  <style>
+    body {
+      margin: 0;
+      padding: 20px;
+      background: #111;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      text-align: center;
+    }
+    #video, #canvas {
+      margin-top: 20px;
+      border-radius: 10px;
+    }
+    #stats {
+      margin-top: 20px;
+      font-size: 24px;
+      font-weight: bold;
+    }
+    select {
+      font-size: 18px;
+      padding: 6px 10px;
+      border-radius: 8px;
+    }
+  </style>
+</head>
+<body>
+  <h1>💪 FitNudge Workout Tracker</h1>
+  <p>Select your exercise:</p>
+  <select id="exercise">
+    <option value="left_curl">Left Dumbbell Curl</option>
+    <option value="right_curl">Right Dumbbell Curl</option>
+    <option value="shoulder_press">Shoulder Press</option>
+  </select>
+
+  <div>
+    <video id="video" width="640" height="480" autoplay playsinline muted style="display: none;"></video>
+    <canvas id="canvas" width="640" height="480"></canvas>
+  </div>  
+
+  <div id="stats">
+    🧮 Reps: <span id="reps">0</span> | 🔥 Calories: <span id="calories">0.00</span>
+  </div>
+
+  <script>
+    let detector, video, canvas, ctx;
+    let counter = 0, direction = 0;
+    const weightKg = 70;
+    const MET = 3.8;
+
+    const exerciseSelector = document.getElementById("exercise");
+
+
+    async function setupCamera() {
+      video = document.getElementById("video");
+      const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+      video.srcObject = stream;
+      return new Promise(resolve => {
+        video.onloadedmetadata = () => resolve(video);
+      });
+    }
+
+    function getAngle(a, b, c) {
+      const ab = [a.x - b.x, a.y - b.y];
+      const cb = [c.x - b.x, c.y - b.y];
+      const dot = ab[0] * cb[0] + ab[1] * cb[1];
+      const magAB = Math.hypot(...ab);
+      const magCB = Math.hypot(...cb);
+      return Math.acos(dot / (magAB * magCB)) * (180 / Math.PI);
+    }
+
+    function drawKeypoints(keypoints) {
+      keypoints.forEach(kp => {
+        if (kp.score > 0.5) {
+          ctx.beginPath();
+          ctx.arc(kp.x, kp.y, 5, 0, 2 * Math.PI);
+          ctx.fillStyle = "#00FF00";
+          ctx.fill();
+        }
+      });
+    }
+
+    function updateStats(angle) {
+      if (angle > 160 && direction === 0) {
+        counter += 0.5;
+        direction = 1;
+      }
+      if (angle < 40 && direction === 1) {
+        counter += 0.5;
+        direction = 0;
+      }
+
+      const calPerMin = (MET * weightKg * 3.5) / 200;
+      const calories = (counter / 20) * calPerMin;
+
+      document.getElementById("reps").innerText = Math.floor(counter);
+      document.getElementById("calories").innerText = calories.toFixed(2);
+    }
+
+    async function renderPrediction() {
+      const poses = await detector.estimatePoses(video);
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+
+      if (poses.length > 0) {
+        const keypoints = poses[0].keypoints;
+        drawKeypoints(keypoints);
+
+        let angle = 0;
+        const exercise = exerciseSelector.value;
+
+        const kp = keypoints;
+
+        if (exercise === "left_curl" &&
+            kp[5].score > 0.5 && kp[7].score > 0.5 && kp[9].score > 0.5) {
+          angle = getAngle(kp[5], kp[7], kp[9]);
+        } else if (exercise === "right_curl" &&
+            kp[6].score > 0.5 && kp[8].score > 0.5 && kp[10].score > 0.5) {
+          angle = getAngle(kp[6], kp[8], kp[10]);
+        } else if (exercise === "shoulder_press" &&
+            kp[11].score > 0.5 && kp[5].score > 0.5 && kp[9].score > 0.5) {
+          angle = getAngle(kp[11], kp[5], kp[9]); // Hip, Shoulder, Wrist (left)
+        }
+
+        if (angle) {
+          ctx.fillStyle = "#FFD700";
+          ctx.font = "16px Arial";
+          ctx.fillText(`Angle: ${Math.floor(angle)}`, 20, 30);
+          updateStats(angle);
+        }
+      }
+
+      requestAnimationFrame(renderPrediction);
+    }
+
+    async function init() {
+      await tf.setBackend('webgl');
+      await setupCamera();
+      video.play();
+      canvas = document.getElementById("canvas");
+      ctx = canvas.getContext("2d");
+
+      detector = await poseDetection.createDetector(poseDetection.SupportedModels.MoveNet);
+      renderPrediction();
+    }
+
+    init();
+  </script>
+</body>
+</html>

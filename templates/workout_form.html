@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Workout Plan</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Nunito:wght@300;600;800&display=swap');
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background-color: black;
+            color: #ffffff;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 650px;
+            height: auto;
+            margin: 50px auto;
+            background-color: #3d3b3b;
+            padding: 35px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            animation: fadeIn 1s ease-in-out;
+        }
+
+        h2 {
+            text-align: center;
+            color: #3dccff;
+            font-size: 2.5em;
+            margin-bottom: 30px;
+            animation: moveIn 2s ease-in-out infinite alternate;
+        }
+
+        @keyframes moveIn {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(8px); }
+        }
+
+        label {
+            font-weight: 600;
+            color: #3dccff;
+        }
+
+        input[type="number"], select, input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 6px;
+            margin-bottom: 16px;
+            border: 1px solid #1F51FF;
+            border-radius: 8px;
+            background-color: #1e1e1e;
+            color: #ffffff;
+        }
+
+        button {
+            width: 100%;
+            background-color: #1F51FF;
+            color: white;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: background 0.3s ease, transform 0.2s ease;
+        }
+
+        button:hover {
+            background-color: #3dccff;
+            transform: scale(1.03);
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @media (max-width: 768px) {
+            .container {
+                margin: 20px;
+                padding: 25px;
+            }
+        
+            h2 {
+                font-size: 2em;
+            }
+        
+            input[type="number"], select, input[type="text"] {
+                font-size: 14px;
+                padding: 8px;
+            }
+        
+            button {
+                font-size: 14px;
+                padding: 10px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px;
+            }
+        
+            h2 {
+                font-size: 1.8em;
+            }
+        
+            label {
+                font-size: 14px;
+            }
+        
+            input[type="number"], select, input[type="text"] {
+                font-size: 13px;
+                padding: 8px;
+            }
+        
+            button {
+                font-size: 13px;
+                padding: 10px;
+            }
+        }
+        
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>🏋️ Personalized Workout Plan</h2>
+    <form method="POST">
+        <label>Gender:</label>
+        <select name="gender">
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+        </select>
+
+        <label>Age:</label>
+        <input type="number" name="age" required>
+
+        <label>Height (cm):</label>
+        <input type="number" name="height" required>
+
+        <label>Weight (kg):</label>
+        <input type="number" name="weight" required>
+
+        <label>Days:</label>
+        <input type="number" name="days" required>
+
+        <label>Workout Type:</label>
+        <select name="workout_type">
+            <option>Home Workout</option>
+            <option>Gym Workout</option>
+            <option>Yoga</option>
+        </select>
+
+        <label>Equipment:</label>
+        <input type="text" name="equipment">
+
+        <label>Goal:</label>
+        <select name="goal">
+            <option>Weight Loss</option>
+            <option>Weight Gain</option>
+            <option>Muscle Gain</option>
+            <option>Health Training</option>
+            <option>General Fitness</option>
+        </select>
+
+        <label>Health Issues:</label>
+        <input type="text" name="health">
+
+        <button type="submit">Generate Workout Plan</button>
+    </form>
+</div>
+
+</body>
+</html>

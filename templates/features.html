@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitAI - Features</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+    
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      overflow-x: hidden;
+    }
+
+    .background-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      z-index: -1;
+    }
+    
+
+    .container {
+      max-width: 1200px;
+      margin: auto;
+      padding: 80px 20px 40px;
+    }
+
+    .navbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 15px 30px;
+      background: rgba(0, 0, 0, 0.7);
+      position: fixed;
+      width: 100%;
+      top: 0;
+      z-index: 10;
+    }
+
+    .navbar .logo {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #0ef;
+    }
+
+    .navbar .nav-items {
+      display: flex;
+      gap: 25px;
+    }
+
+    .navbar .nav-items a {
+      text-decoration: none;
+      color: #fff;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+
+    .navbar .nav-items a:hover {
+      color: #0ef;
+    }
+
+    .typewriter {
+      font-size: 2.5rem;
+      white-space: nowrap;
+      overflow: hidden;
+      border-right: .15em solid #0ef;
+      width: 0;
+      animation: typing 3s steps(30, end) forwards, blink .75s step-end infinite;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    @keyframes blink {
+      0%, 100% { border-color: transparent }
+      50% { border-color: #0ef }
+    }
+
+    .feature-card-inner {
+      transition: transform 0.4s ease;
+    }
+
+    .feature-card:hover .feature-card-inner {
+      transform: scale(1.08);
+    }
+
+    .feature-section {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 30px;
+      justify-items: center;
+      margin-top: 30px;
+    }
+
+    .feature-card {
+      background: rgba(0, 0, 0, 0.6);
+      border-radius: 20px;
+      padding: 30px;
+      width: 100%;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 0 10px rgba(0,255,255,0.3);
+      opacity: 0;
+      transform: translateX(0);
+    }
+
+    .slide-left {
+      animation: slideFromFarLeft 1s ease-out forwards;
+    }
+
+    .slide-right {
+      animation: slideFromFarRight 1s ease-out forwards;
+    }
+
+    @keyframes slideFromFarLeft {
+      0% { transform: translateX(-100vw); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    @keyframes slideFromFarRight {
+      0% { transform: translateX(100vw); opacity: 0; }
+      100% { transform: translateX(0); opacity: 1; }
+    }
+
+    .feature-card:hover {
+      transform: scale(1.05);
+      transition: transform 0.3s ease;
+    }
+
+    .card-btn {
+      background: transparent;
+      color: #0ef;
+      border: 2px solid #0ef;
+      padding: 10px 20px;
+      border-radius: 25px;
+      font-weight: bold;
+      transition: 0.4s;
+      cursor: pointer;
+      margin-top: 20px;
+    }
+
+    .card-btn:hover {
+      background: #0ef;
+      color: #000;
+      box-shadow: 0 0 15px #0ef;
+    }
+
+    /* Chat Section */
+    .chat-wrapper {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      margin-top: 60px;
+    }
+
+    .chat-heading {
+      font-size: 2rem;
+      margin-bottom: 30px;
+      color: #0ef;
+      animation: glow 2s infinite alternate;
+    }
+
+    .chat-card {
+      background: rgba(0, 0, 0, 0.6);
+      padding: 30px;
+      border-radius: 20px;
+      box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
+      max-width: 500px;
+      width: 90%;
+      text-align: center;
+      animation: bounceIn 1s ease-out;
+    }
+
+    @keyframes bounceIn {
+      0% { transform: translateY(100px); opacity: 0; }
+      60% { transform: translateY(-10px); opacity: 1; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes glow {
+      from { text-shadow: 0 0 10px #0ef; }
+      to { text-shadow: 0 0 20px #0ef, 0 0 30px #0ef; }
+    }
+
+  </style>
+</head>
+<body>
+  <!-- Background Video -->
+  <video autoplay muted loop class="background-video">
+    <source src="/static/assets/video1.mp4" type="video/mp4" />
+    Your browser does not support the video tag.
+  </video>
+  
+
+  <!-- Navbar -->
+  <div class="navbar">
+    <div class="logo">💪 FitGenius</div>
+    <div class="nav-items">
+      <a href="#">Contact Us</a>
+      <a href="#">Sign Out</a>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1 class="typewriter">Your Fitness, Your Way.</h1>
+
+    <!-- Feature Cards -->
+    <div class="feature-section">
+      <div class="feature-card slide-left" style="animation-delay: 0.2s;">
+        <div class="feature-card-inner">
+          <h3>Train</h3>
+          <p>Track your progress with real-time workout analysis and posture feedback.</p>
+          <button class="card-btn" id="startTrainingBtn">Start Training</button>
+        </div>
+      </div>
+
+      <div class="feature-card slide-right" style="animation-delay: 0.4s;">
+        <div class="feature-card-inner">
+          <h3>Workout Plan</h3>
+          <p>Get custom fitness plans based on your body type, goals, and preferences.</p>
+          <button class="card-btn" onclick="window.location.href='/workout_form'">View Plan</button>
+        </div>
+      </div>
+
+      <div class="feature-card slide-left" style="animation-delay: 0.6s;">
+        <div class="feature-card-inner">
+          <h3>Diet Plan</h3>
+          <p>Personalized meal plans to fuel your fitness journey and optimize nutrition.</p>
+          <button class="card-btn" id="dietPlanBtn">Get My Diet</button>
+        </div>
+      </div>
+
+      <div class="feature-card slide-right" style="animation-delay: 0.8s;">
+        <div class="feature-card-inner">
+          <h3>Nutrition</h3>
+          <p>Track your macros and explore healthy meal suggestions based on your fitness goals.</p>
+          <button onclick="window.location.href='/tracker'" class="card-btn">Nutrition Info</button>
+
+
+        </div>
+      </div>
+    </div>
+
+    <!-- Chat Section Below All Feature Cards -->
+    <div class="chat-wrapper">
+      <h2 class="chat-heading">Want to Chat?</h2>
+      <div class="chat-card">
+        <h3>AI Gym Assistant</h3>
+        <p>Your smart assistant that helps you through every set and rep.</p>
+        <button class="card-btn" id="meetDonnieBtn">Meet Donnie</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    window.addEventListener('load', () => {
+      document.querySelectorAll('.feature-card').forEach(card => {
+        card.style.opacity = '1';
+      });
+
+      document.getElementById("startTrainingBtn").addEventListener("click", function () {
+        window.location.href = "/train";
+      });
+
+      document.getElementById("meetDonnieBtn").addEventListener("click", function () {
+        window.location.href = "/chatbot";
+      });
+
+      document.getElementById("dietPlanBtn").addEventListener("click", function () {
+        window.location.href = "/diet_form";
+      });
+    });
+  </script>
+</body>
+</html>

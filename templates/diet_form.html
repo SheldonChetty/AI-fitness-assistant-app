@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Diet Plan</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+    }
+
+    body, html {
+      height: 100%;
+      width: 100%;
+    }
+
+    body {
+      background: linear-gradient(135deg, #262727, #262727);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .container {
+      width: 80%;
+      max-width: 1000px;
+      height: 600px;
+      display: flex;
+      border-radius: 20px;
+      overflow: hidden;
+      box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+    }
+
+    .left-side {
+      flex: 1;
+      background: linear-gradient(135deg, #00e0ff, #0099ff);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      padding: 40px;
+    }
+
+    .left-side h1 {
+      font-size: 2em;
+      text-align: center;
+    }
+
+    .right-side {
+      flex: 1;
+      background-color: #1b1f2f;
+      padding: 50px 40px;
+      color: white;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+
+    h2 {
+      text-align: center;
+      margin-bottom: 10px;
+      font-size: 24px;
+      color: #00ffc8;
+    }
+
+    form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    label {
+      font-size: 25px;
+      margin: 10px 0 5px;
+    }
+
+    input, select {
+      padding: 10px;
+      border-radius: 15px;
+      border: none;
+      background-color: #2c304a;
+      color: white;
+      font-size: 20px;
+    }
+
+    input::placeholder {
+      color: #aaa;
+    }
+
+    input:focus, select:focus {
+      outline: 2px solid #00ffc8;
+    }
+
+    button {
+      margin-top: 20px;
+      padding: 12px;
+      background-color: #104582;
+      border: none;
+      border-radius: 30px;
+      color: #1b1f2f;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background-color: #00dab3;
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        flex-direction: column;
+        height: auto;
+      }
+      .left-side, .right-side {
+        flex: unset;
+        width: 100%;
+        padding: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <!-- Left branding -->
+    <div class="left-side">
+      <h1>🍽️ Personalized<br> Indian Diet Plan</h1>
+    </div>
+
+    <!-- Right form -->
+    <div class="right-side">
+      <h2>INPUT</h2>
+      <form method="POST">
+        <label for="goal">Goal:</label>
+        <select name="goal" id="goal">
+          <option>Weight Loss</option>
+          <option>Weight Gain</option>
+          <option>Muscle Gain</option>
+          <option>Health Training</option>
+          <option>General Fitness</option>
+        </select>
+
+        <label for="preference">Preference:</label>
+        <select name="preference" id="preference">
+          <option>Veg</option>
+          <option>Non-Veg</option>
+          <option>Both</option>
+          <option>Vegan</option>
+        </select>
+
+        <label for="allergies">Allergies (comma-separated):</label>
+        <input type="text" name="allergies" id="allergies" placeholder="e.g., nuts, dairy">
+
+        <label for="days">Days:</label>
+        <input type="number" name="days" id="days" placeholder="e.g., 7">
+
+        <button type="submit">Create Diet Plan</button>
+      </form>
+    </div>
+  </div>
+
+</body>
+</html>
