@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitGenie</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  <script src="{{ url_for('static', filename='script.js') }}"></script>
+</head>
+<body>
+  <!-- Navbar -->
+  <nav class="navbar">
+    <div class="nav-container">
+      <ul class="nav-links">
+        <li><a href="#">Home</a></li>
+        <li><a href="#">About</a></li>
+        <li><a href="#">Contact</a></li>
+      </ul>
+      <button id="getStartedBtn" class="neon-button">Sign In/Register</button>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section class="hero">
+    <video autoplay muted loop class="video-bg">
+      <source src="{{ url_for('static', filename='assets/video1.mp4') }}" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="hero-content">
+      <h1>Transform Your Fitness Journey</h1>
+      <p>Personalized Workouts, Diet Plans & Real-Time Coaching</p>
+    </div>
+  </section>
+
+  <!-- About Section -->
+  <section class="about-us">
+    <video autoplay muted loop class="about-video-bg">
+      <source src="{{ url_for('static', filename='bg2.mp4') }}" type="video/mp4" />
+    </video>
+    <div class="about-overlay"></div>
+
+    <div class="about-left">
+      <h2>Who are WE</h2>
+      <div class="about-box">
+        <p>We are a passionate team dedicated to creating innovative web solutions. Our mission is to build seamless user experiences and impactful digital products.</p>
+      </div>
+    </div>
+
+    <div class="about-right">
+      <div class="slider">
+        <img src="{{ url_for('static', filename='image1.jpeg') }}" class="slide active" />
+        <img src="{{ url_for('static', filename='image2.jpeg') }}" class="slide" />
+        <img src="{{ url_for('static', filename='image3.jpeg') }}" class="slide" />
+      </div>
+    </div>
+  </section>
+
+  <!-- Features Section -->
+  <section class="features">
+    <h2>Features</h2>
+    <div class="feature-list">
+      <div class="feature-box">
+        <h3>Workouts Tailored Just for You</h3>
+        <p>No more one-size-fits-all programs. Our expert trainers craft routines based on your goals, fitness level, and schedule. Whether you’re training at home or in the gym, we’ve got your back with personalized plans that actually work.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Fuel Your Body Right</h3>
+        <p>Fitness isn’t just about lifting weights—it’s about what you eat too. Get access to customized meal plans, macro tracking, and smart nutrition tips that help you burn fat, build muscle, and stay energized all day long.</p>
+      </div>
+      <div class="feature-box">
+        <h3>Motivation that Moves You</h3>
+        <p>Join a thriving community of fitness enthusiasts who lift each other up. Share progress, swap tips, and stay accountable with daily check-ins and challenges. You’re never alone on this journey.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Card Section -->
+  <section class="card-section">
+    <div class="vertical-card">
+      <img src="your-image1.jpg" alt="Card image 1" />
+      <div class="vertical-card-content">
+        <h3>Card Title One</h3>
+        <p>This is a sample description for the first vertical card. Add your own content and adjust as needed.</p>
+        <button class="card-btn">Learn More</button>
+      </div>
+    </div>
+
+    <div class="vertical-card">
+      <img src="your-image2.jpg" alt="Card image 2" />
+      <div class="vertical-card-content">
+        <h3>Card Title Two</h3>
+        <p>Another card with an image, title, and text. Great for showcasing features, tools, or news.</p>
+        <button class="card-btn">Explore</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Contact Section -->
+  <section class="contact-container">
+    <div class="contact-left">
+      <h2>Contact Us</h2>
+      <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem numquam id reprehenderit, sunt laudantium enim possimus repellat debitis et quis!</p>
+
+      <div class="contact-info">
+        <div class="info-box">
+          <i class="fas fa-map-marker-alt"></i>
+          <div>
+            <h4>Address</h4>
+            <p>402671 Sugar Camp Road,<br>Owatonna, Minnesota,<br>55025060</p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-phone-alt"></i>
+          <div>
+            <h4>Phone</h4>
+            <p>000-000-0000</p>
+          </div>
+        </div>
+
+        <div class="info-box">
+          <i class="fas fa-envelope"></i>
+          <div>
+            <h4>Email</h4>
+            <p>wrub7d78i0e@temporary-mail</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="social-connect">
+        <h4>Connect with us</h4>
+        <div class="social-icons">
+          <i class="fab fa-facebook-f"></i>
+          <i class="fab fa-x-twitter"></i>
+          <i class="fab fa-instagram"></i>
+          <i class="fab fa-linkedin-in"></i>
+        </div>
+      </div>
+    </div>
+
+    <div class="contact-right">
+      <h3>Send Message</h3>
+      <form class="contact-form">
+        <input type="text" placeholder="Full Name" required>
+        <input type="email" placeholder="Email" required>
+        <textarea rows="5" placeholder="Type your Message..." required></textarea>
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+
+  <!-- Button Redirection Script -->
+  <script>
+    document.getElementById("getStartedBtn").addEventListener("click", function () {
+      window.location.href = "{{ url_for('signin') }}";
+    });
+  </script>
+</body>
+</html>

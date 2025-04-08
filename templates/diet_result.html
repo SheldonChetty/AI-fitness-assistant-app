@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Diet Plan Result</title></head>
+<body>
+    {% for day in diet_plan %}
+        <h3>🗓️ Day {{ day.day }}</h3>
+        <p><b>Breakfast:</b> {{ day.breakfast }}</p>
+        <p><b>Lunch:</b> {{ day.lunch }}</p>
+        <p><b>High Tea:</b> {{ day.tea }}</p>
+        <p><b>Dinner:</b> {{ day.dinner }}</p>
+        <p><b>Total Calories:</b> {{ day.calories }} kcal</p>
+        <hr>
+    {% endfor %}
+</body>
+</html>

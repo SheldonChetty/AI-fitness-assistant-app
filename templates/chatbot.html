@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Donnie - Your Gym Assistant</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #111;
+      color: #fff;
+      padding: 20px;
+    }
+
+    #chatbox {
+      height: 400px;
+      overflow-y: scroll;
+      background: #222;
+      padding: 15px;
+      border-radius: 10px;
+      margin-bottom: 20px;
+    }
+
+    .user {
+      color: #4caf50;
+      margin-bottom: 10px;
+    }
+
+    .bot {
+      color: #ffffff;
+      margin-bottom: 20px;
+    }
+
+    input[type="text"] {
+      width: 70%;
+      padding: 10px;
+      border-radius: 5px;
+      border: none;
+    }
+
+    button {
+      padding: 10px 15px;
+      background-color: #4caf50;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      margin-left: 10px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    .bold {
+      font-weight: bold;
+    }
+  </style>
+</head>
+<body>
+  <h1>🤖 Donnie - Your Gym Assistant</h1>
+  <div id="chatbox"></div>
+
+  <input type="text" id="user-input" placeholder="Type your message or click Speak">
+  <button onclick="sendMessage()">Send</button>
+  <button onclick="startListening()">🎙 Speak</button>
+  <button onclick="clearChat()">Clear</button>
+
+  <script>
+    const chatbox = document.getElementById("chatbox");
+    const input = document.getElementById("user-input");
+
+    function addMessage(role, text) {
+      const msgDiv = document.createElement("div");
+      msgDiv.className = role;
+      msgDiv.innerHTML = `<span class="bold">${role.toUpperCase()}</span>: ${text}`;
+      chatbox.appendChild(msgDiv);
+      chatbox.scrollTop = chatbox.scrollHeight;
+    }
+
+    function sendMessage() {
+      const text = input.value.trim();
+      if (!text) return;
+      addMessage("user", text);
+      fetch("/chatbot", {
+        method: "POST",
+        body: JSON.stringify({ message: text }),
+        headers: { "Content-Type": "application/json" }
+      })
+        .then(res => res.json())
+        .then(data => {
+          addMessage("bot", data.reply);
+          speak(data.reply);
+        });
+      input.value = "";
+    }
+
+    function startListening() {
+      const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+      recognition.lang = "en-US";
+      recognition.start();
+      recognition.onresult = function (event) {
+        const speechText = event.results[0][0].transcript;
+        input.value = speechText;
+        sendMessage();
+      };
+      recognition.onerror = function () {
+        alert("Voice recognition failed. Try again.");
+      };
+    }
+
+    function speak(text) {
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.pitch = 1;
+      utterance.rate = 1;
+      utterance.volume = 1;
+      speechSynthesis.speak(utterance);
+    }
+
+    function clearChat() {
+      chatbox.innerHTML = "";
+    }
+  </script>
+</body>
+</html>

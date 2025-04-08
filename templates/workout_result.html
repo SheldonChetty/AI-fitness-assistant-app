@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html>
+<head><title>Workout Plan Result</title></head>
+<body>
+    <h2>Your BMI: {{ bmi }}</h2>
+    {% for day, exercises in plan %}
+        <h3>{{ day }}</h3>
+        <ul>
+            {% for ex in exercises %}
+                <li>{{ ex }}</li>
+            {% endfor %}
+        </ul>
+    {% endfor %}
+</body>
+</html>

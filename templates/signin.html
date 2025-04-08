@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>FitAI - Login / Sign Up</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body, html {
+      height: 100%;
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      background: #111;
+      color: #fff;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .auth-container {
+      width: 850px;
+      height: 500px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 0 20px rgba(0,255,255,0.4);
+      display: flex;
+      overflow: hidden;
+      position: relative;
+      transition: transform 0.6s ease;
+    }
+
+    .form-container,
+    .welcome-container {
+      width: 50%;
+      height: 100%;
+      padding: 50px 30px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      transition: all 0.6s ease;
+    }
+
+    .form-container {
+      background: #fff;
+      color: #000;
+      z-index: 2;
+    }
+
+    .form-container input {
+      padding: 12px;
+      margin: 10px 0;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      width: 100%;
+    }
+
+    .form-container button {
+      margin-top: 15px;
+      padding: 12px;
+      background: #000;
+      color: #fff;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    .form-container button:hover {
+      background: #0ef;
+      color: #000;
+    }
+
+    .form-container p {
+      margin-top: 20px;
+      font-size: 0.9rem;
+    }
+
+    .form-container a {
+      color: #0ef;
+      cursor: pointer;
+    }
+
+    .welcome-container {
+      background: #000;
+      color: #fff;
+      text-align: center;
+      z-index: 1;
+    }
+
+    .welcome-container h2 {
+      font-size: 2rem;
+      margin-bottom: 15px;
+    }
+
+    .welcome-container p {
+      font-size: 1rem;
+      opacity: 0.8;
+    }
+
+    /* Toggle states */
+    .auth-container.signup-active .form-container {
+      transform: translateX(100%);
+    }
+
+    .auth-container.signup-active .welcome-container {
+      transform: translateX(-100%);
+    }
+
+    .auth-container .form-container,
+    .auth-container .welcome-container {
+      transition: transform 0.6s ease, opacity 0.6s ease;
+    }
+
+    .auth-container.signup-active .login-form {
+      display: none;
+    }
+
+    .auth-container.signup-active .signup-form {
+      display: flex;
+    }
+
+    .signup-form {
+      display: none;
+      flex-direction: column;
+    }
+
+    .login-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+  </style>
+</head>
+<body>
+
+  <div class="auth-container" id="authContainer">
+    
+    <!-- Login / Sign-up Form Section -->
+    <div class="form-container">
+
+      <!-- Login Form -->
+      <form class="login-form" method="POST" action="/signin">
+        <h2>Login</h2>
+        <input type="text" name="email" placeholder="Email"  />
+        <input type="password" name="password" placeholder="Password"  />
+        <button type="submit">Login</button>
+        <p>Don't have an account? <a type="button" onclick="toggleForm()">Sign up</a></p>
+
+        {% if error %}
+          <p style="color: red; margin-top: 10px;">{{ error }}</p>
+        {% endif %}
+      </form>
+
+      <!-- Sign Up Form (Dummy for now) -->
+      <div class="signup-form">
+        <h2>Sign Up</h2>
+        <input type="text" placeholder="Username" />
+        <input type="email" placeholder="Email" />
+        <input type="password" placeholder="Password" />
+        <button type="button" onclick="switchToLogin()">Sign Up</button>
+        <p>Already have an account? 
+          <a href="features">Login</a>
+
+
+        </p>
+      </div>
+      
+
+    </div>
+
+    <!-- Welcome Section -->
+    <div class="welcome-container">
+      <h2>WELCOME BACK!</h2>
+      <p>Get ready to crush your fitness goals with FitAI.</p>
+    </div>
+  </div>
+
+  <script>
+    const authContainer = document.getElementById('authContainer');
+    
+    function toggleForm() {
+      authContainer.classList.toggle('signup-active');
+    }
+
+    function switchToLogin() {
+      authContainer.classList.remove('signup-active');
+    }
+  </script>
+  
+</body>
+</html>
