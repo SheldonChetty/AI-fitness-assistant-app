@@ -61,8 +61,8 @@ html {
   
   .neon-button {
     position: absolute;
-    top: 0.5rem;
-    right: 2rem;
+    bottom: -600px;
+    right: 20px;
     background-color: #1F51FF;
     color: #000;
     border: none;
