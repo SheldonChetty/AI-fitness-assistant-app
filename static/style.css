@@ -223,6 +223,9 @@ html {
     transform: scale(1.2); /* Scales 2x larger */
     transition: transform 0.3s ease-in-out;
   }
+  .about-box p {
+    font-size: 1.2rem;
+  }
   
   .about-right {
     width: 600px;        /* Set width manually */
